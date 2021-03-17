@@ -6,13 +6,13 @@ public abstract class User extends Object{
 	protected String username;
 	protected String password;
 	
+	/* protected permissions */
+	protected boolean ableToEditAnyCourse;
+	protected boolean ableToEditMyCourse;
+	protected boolean ableToEnrollStudents;
+	protected boolean ableToEnrollInClasses;
+	
 	/* Getters and Setters */
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getUsername() {
 		return username;
 	}
@@ -25,15 +25,52 @@ public abstract class User extends Object{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public boolean isAbleToEditAnyCourse() {
+		return ableToEditAnyCourse;
+	}
+	public void setAbleToEditAnyCourse(boolean ableToEditAnyCourse) {
+		this.ableToEditAnyCourse = ableToEditAnyCourse;
+	}
+	public boolean isAbleToEditMyCourse() {
+		return ableToEditMyCourse;
+	}
+	public void setAbleToEditMyCourse(boolean ableToEditMyCourse) {
+		this.ableToEditMyCourse = ableToEditMyCourse;
+	}
+	public boolean isAbleToEnrollStudents() {
+		return ableToEnrollStudents;
+	}
+	public void setAbleToEnrollStudents(boolean ableToEnrollStudents) {
+		this.ableToEnrollStudents = ableToEnrollStudents;
+	}
+	public boolean isAbleToEnrollInClasses() {
+		return ableToEnrollInClasses;
+	}
+	public void setAbleToEnrollInClasses(boolean ableToEnrollInClasses) {
+		this.ableToEnrollInClasses = ableToEnrollInClasses;
+	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return name;
+	}
 	
 	/* constructors */
 	public User() {}
-	public User(String name, String username, String password) {
+	public User(String name, String username, String password, boolean 
+			ableToEditAnyCourse, boolean ableToEditMyCourse, boolean ableToEnrollStudents, 
+			boolean ableToEnrollInClasses) {
 		this.name = name;
 		this.username = username;
 		this.password = password;
+		this.ableToEditAnyCourse = ableToEditAnyCourse;
+		this.ableToEditMyCourse = ableToEditMyCourse;
+		this.ableToEnrollStudents = ableToEnrollStudents;
+		this.ableToEnrollInClasses = ableToEnrollInClasses;
 	}
 	
+	/* Login and Logout */
 	public abstract boolean login();
 	public abstract boolean logout();
 	
