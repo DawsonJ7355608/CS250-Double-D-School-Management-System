@@ -70,7 +70,7 @@ public abstract class User extends Object{
 		this.ableToEnrollInClasses = ableToEnrollInClasses;
 	}
 	
-	/* Login and Logout */
+	/* login and logout */
 	public abstract boolean login();
 	public abstract boolean logout();
 	
