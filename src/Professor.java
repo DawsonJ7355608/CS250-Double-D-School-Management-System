@@ -1,5 +1,5 @@
 
-public class Professor extends User {
+public class Professor extends Faculty {
 
 	
 	
