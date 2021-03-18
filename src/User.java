@@ -5,7 +5,8 @@ public abstract class User extends Object{
 	protected String name;
 	protected String username;
 	protected String password;
-	
+	protected boolean isLoggedOn;
+
 	/* protected permissions */
 	protected boolean ableToEditAnyCourse;
 	protected boolean ableToEditMyCourse;
@@ -54,6 +55,12 @@ public abstract class User extends Object{
 	}
 	public String getName() {
 		return name;
+	}
+	public boolean isLoggedOn() {
+		return isLoggedOn;
+	}
+	public void setLoggedOn(boolean isLoggedOn) {
+		this.isLoggedOn = isLoggedOn;
 	}
 	
 	/* constructors */
