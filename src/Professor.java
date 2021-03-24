@@ -1,12 +1,9 @@
 
 public class Professor extends Faculty {
 
-	public Professor(String name, String username, String password, boolean 
-			ableToEditAnyCourse, boolean ableToEditMyCourse, boolean ableToEnrollStudents, 
-			boolean ableToEnrollInClasses, String typeOfFaculty) {
+	public Professor(String name, String username, String password, String typeOfFaculty) {
 		
-		super(name, username, password, ableToEditAnyCourse, ableToEditMyCourse, 
-				ableToEnrollStudents, ableToEnrollInClasses, typeOfFaculty);
+		super(name, username, password,typeOfFaculty);
 	}
 	
 	@Override

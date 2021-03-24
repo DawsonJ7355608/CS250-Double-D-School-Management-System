@@ -14,10 +14,8 @@ public abstract class Faculty extends User {
 
 	/* constructors */
 	public Faculty() {}
-	public Faculty(String name, String username, String password, boolean 
-			ableToEditAnyCourse, boolean ableToEditMyCourse, boolean ableToEnrollStudents, 
-			boolean ableToEnrollInClasses, String typeOfFaculty) {
-		super(name, username, password, ableToEditAnyCourse, ableToEditMyCourse, ableToEnrollStudents, ableToEnrollInClasses);
+	public Faculty(String name, String username, String password, String typeOfFaculty) {
+		super(name, username, password);
 		this.typeOfFaculty = typeOfFaculty;
 	}
 	
