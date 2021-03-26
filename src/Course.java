@@ -8,6 +8,7 @@ import java.util.List;
  */
 public class Course {
 	
+	/* variables for course class */
 	protected String professor;
 	protected int classNumber;
 	protected String timeAndDays;
@@ -15,6 +16,14 @@ public class Course {
 	protected double creditValue;
 	protected List<Student> studentsEnrolled;
 	
+	/**
+	 * Constructor for Course class
+	 * @param professor
+	 * @param classNumber
+	 * @param timeAndDays
+	 * @param lengthOfCourse
+	 * @param creditValue
+	 */
 	public Course(String professor, int classNumber, String timeAndDays, String lengthOfCourse, double creditValue) {
 		super();
 		this.professor = professor;
@@ -25,6 +34,7 @@ public class Course {
 		this.studentsEnrolled = new ArrayList<>();
 	}
 
+	/* Getters and Setters */
 	public String getProfessor() {
 		return professor;
 	}
