@@ -1,6 +1,10 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Professor extends Faculty {
 
+	List<Course> currentClasses = new ArrayList<>();
+	
 	/**
 	 * Constructor for professor
 	 * @param name

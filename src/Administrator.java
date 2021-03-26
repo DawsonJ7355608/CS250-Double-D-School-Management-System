@@ -1,6 +1,8 @@
 
 public class Administrator extends Faculty {
 
+	
+	
 	public Administrator(String name, String username, String password, String typeOfFaculty) {
 		
 		super(name, username, password, typeOfFaculty);
