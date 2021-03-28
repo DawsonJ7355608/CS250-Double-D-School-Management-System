@@ -10,11 +10,13 @@ public class Course {
 	
 	/* variables for course class */
 	protected String professor;
+	protected String administrator;
 	protected int classNumber;
 	protected String timeAndDays;
 	protected String lengthOfCourse;
 	protected double creditValue;
 	protected List<Student> studentsEnrolled;
+	protected String subject;
 	
 	/**
 	 * Constructor for Course class
@@ -23,15 +25,18 @@ public class Course {
 	 * @param timeAndDays
 	 * @param lengthOfCourse
 	 * @param creditValue
+	 * @param subject
 	 */
-	public Course(String professor, int classNumber, String timeAndDays, String lengthOfCourse, double creditValue) {
+	public Course(String professor, String administrator, int classNumber, String timeAndDays, String lengthOfCourse, double creditValue, String subject) {
 		super();
 		this.professor = professor;
+		this.administrator = administrator;
 		this.classNumber = classNumber;
 		this.timeAndDays = timeAndDays;
 		this.lengthOfCourse = lengthOfCourse;
 		this.creditValue = creditValue;
 		this.studentsEnrolled = new ArrayList<>();
+		this.subject = subject;
 	}
 
 	/* Getters and Setters */
