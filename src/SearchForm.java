@@ -6,22 +6,27 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JTable;
 import java.awt.GridBagConstraints;
 import java.awt.Font;
 import javax.swing.table.DefaultTableModel;
 
-public class SearchForm extends JDialog {
+public class SearchForm extends JDialog implements ActionListener{
 
 	private final JPanel contentPanel = new JPanel();
 	private JTable tblSearchResults;
+	private JButton btnAddCourse;
+	private JButton btnOk;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			SearchForm dialog = new SearchForm();
+			SearchForm dialog = new SearchForm(null, null, null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -32,7 +37,7 @@ public class SearchForm extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public SearchForm() {
+	public SearchForm(Administrator a, Professor p, Student s) {
 		setTitle("Search results");
 		setBounds(100, 100, 700, 850);
 		getContentPane().setLayout(new BorderLayout());
@@ -118,23 +123,31 @@ public class SearchForm extends JDialog {
 			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
 			getContentPane().add(buttonPane, BorderLayout.SOUTH);
 			{
-				JButton btnAddCourse = new JButton("Add Course");
+				btnAddCourse = new JButton("Add Course");
 				btnAddCourse.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				buttonPane.add(btnAddCourse);
 			}
 			{
-				JButton btnOk = new JButton("OK");
+				btnOk = new JButton("OK");
 				btnOk.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				btnOk.setActionCommand("OK");
 				buttonPane.add(btnOk);
 				getRootPane().setDefaultButton(btnOk);
 			}
-			{
-				JButton btnCancel = new JButton("Cancel");
-				btnCancel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				btnCancel.setActionCommand("Cancel");
-				buttonPane.add(btnCancel);
-			}
+		}
+		
+		//add actionlisteners
+		btnOk.addActionListener(this);
+		btnAddCourse.addActionListener(this);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource()==btnOk) {
+			dispose();
+		} else if(e.getSource() == btnAddCourse) {
+			
 		}
 	}
 

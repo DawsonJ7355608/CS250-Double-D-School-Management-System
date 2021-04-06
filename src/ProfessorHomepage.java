@@ -8,13 +8,16 @@ import java.awt.GridBagLayout;
 import javax.swing.JLabel;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import java.awt.Font;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JTextField;
 
-public class ProfessorHomepage extends JFrame {
+public class ProfessorHomepage extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTable tblProfessor;
@@ -52,14 +55,14 @@ public class ProfessorHomepage extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Welcome, ");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 0;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		JLabel lblWelcomeUser = new JLabel("Welcome, ");
+		lblWelcomeUser.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblWelcomeUser = new GridBagConstraints();
+		gbc_lblWelcomeUser.anchor = GridBagConstraints.WEST;
+		gbc_lblWelcomeUser.insets = new Insets(0, 0, 5, 5);
+		gbc_lblWelcomeUser.gridx = 0;
+		gbc_lblWelcomeUser.gridy = 0;
+		contentPane.add(lblWelcomeUser, gbc_lblWelcomeUser);
 		
 		JLabel lblNewLabel_1 = new JLabel("Enter search criteria: ");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -131,6 +134,12 @@ public class ProfessorHomepage extends JFrame {
 		gbc_lblNewLabel_2.gridx = 1;
 		gbc_lblNewLabel_2.gridy = 2;
 		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

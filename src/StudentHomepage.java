@@ -16,12 +16,16 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
-public class StudentHomepage extends JFrame {
+public class StudentHomepage extends JFrame implements ActionListener{
 
 	private JPanel contentPane;
 	private JTable tblStudent;
 	private JTextField textField;
+	private JLabel lblWelcomeUser;
+	private JButton btnSearch;
 
 	/**
 	 * Launch the application.
@@ -56,14 +60,14 @@ public class StudentHomepage extends JFrame {
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		JLabel lblNewLabel = new JLabel("Welcome, ");
-		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 14));
-		GridBagConstraints gbc_lblNewLabel = new GridBagConstraints();
-		gbc_lblNewLabel.anchor = GridBagConstraints.WEST;
-		gbc_lblNewLabel.insets = new Insets(0, 0, 5, 5);
-		gbc_lblNewLabel.gridx = 0;
-		gbc_lblNewLabel.gridy = 0;
-		contentPane.add(lblNewLabel, gbc_lblNewLabel);
+		lblWelcomeUser = new JLabel("Welcome, ");
+		lblWelcomeUser.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_lblWelcomeUser = new GridBagConstraints();
+		gbc_lblWelcomeUser.anchor = GridBagConstraints.WEST;
+		gbc_lblWelcomeUser.insets = new Insets(0, 0, 5, 5);
+		gbc_lblWelcomeUser.gridx = 0;
+		gbc_lblWelcomeUser.gridy = 0;
+		contentPane.add(lblWelcomeUser, gbc_lblWelcomeUser);
 		
 		JLabel lblNewLabel_1 = new JLabel("Enter search criteria: ");
 		lblNewLabel_1.setFont(new Font("Tahoma", Font.PLAIN, 14));
@@ -83,7 +87,7 @@ public class StudentHomepage extends JFrame {
 		contentPane.add(textField, gbc_textField);
 		textField.setColumns(10);
 		
-		JButton btnSearch = new JButton("Search");
+		btnSearch = new JButton("Search");
 		btnSearch.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_btnSearch = new GridBagConstraints();
 		gbc_btnSearch.insets = new Insets(0, 0, 5, 0);
@@ -136,6 +140,16 @@ public class StudentHomepage extends JFrame {
 		gbc_lblNewLabel_2.gridy = 2;
 		contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 		
+		//actionlisteners
+		btnSearch.addActionListener(this);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		if(e.getSource() == btnSearch) {
+			
+		}
 	}
 
 }
