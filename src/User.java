@@ -5,14 +5,9 @@ public abstract class User extends Object{
 	protected String name;
 	protected String username;
 	protected String password;
+	protected boolean isLoggedOn;
 	
 	/* Getters and Setters */
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
 	public String getUsername() {
 		return username;
 	}
@@ -25,6 +20,18 @@ public abstract class User extends Object{
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getName() {
+		return name;
+	}
+	public boolean isLoggedOn() {
+		return isLoggedOn;
+	}
+	public void setLoggedOn(boolean isLoggedOn) {
+		this.isLoggedOn = isLoggedOn;
+	}
 	
 	/* constructors */
 	public User() {}
@@ -34,6 +41,7 @@ public abstract class User extends Object{
 		this.password = password;
 	}
 	
+	/* login and logout */
 	public abstract boolean login();
 	public abstract boolean logout();
 	

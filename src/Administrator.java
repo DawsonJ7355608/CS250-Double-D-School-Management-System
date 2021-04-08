@@ -1,7 +1,12 @@
 
-public class Administrator extends User {
+public class Administrator extends Faculty {
 
 	
+	
+	public Administrator(String name, String username, String password, String typeOfFaculty) {
+		
+		super(name, username, password, typeOfFaculty);
+	}
 	
 	@Override
 	public boolean login() {
