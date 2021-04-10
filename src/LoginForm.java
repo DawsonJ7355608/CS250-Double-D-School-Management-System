@@ -39,6 +39,7 @@ public class LoginForm extends JFrame implements ActionListener {
 	private JButton btnLogin;
 	public static ArrayList<String> arrUsername;
 	public static ArrayList<String> arrPassword;
+	public static ArrayList<User> arrUsers;
 	private JPasswordField txtPassword;
 	private JComboBox<String> cbbUserType;
 	private JLabel lblUserType;
@@ -113,6 +114,7 @@ public class LoginForm extends JFrame implements ActionListener {
 		
 		arrUsername = new ArrayList<>();
 		arrPassword = new ArrayList<>();
+		arrUsers = new ArrayList<>();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -124,22 +126,19 @@ public class LoginForm extends JFrame implements ActionListener {
 			frame.setVisible(true);
 		} else if(e.getSource() == btnLogin) {
 			String username = txtUsername.getText();
-			int index = arrUsername.indexOf(username);
-			if(index < 0) {
-				JOptionPane.showMessageDialog(this, "The user is not exist!");
-			} else {
-				String password = txtPassword.getText();
-				if(arrPassword.get(index).equals(password)) {
-					/*MainForm main = new MainForm(this, false);
+			String password = txtPassword.getText();
+			for (User u : arrUsers) {
+				if(u.getUsername().equals(username) && u.getPassword().equals(password)) {
+					Homepage home = new Homepage(u);
 					this.setEnabled(false);
 					txtUsername.setText("");
 					txtPassword.setText("");
-					main.setVisible(true);*/
-					
-				} else 
-					JOptionPane.showMessageDialog(this, "The username and password do not match!");
-			}
-		}
+					home.setEnabled(true);
+					home.setVisible(true);
+					break;
+				}
+			}JOptionPane.showMessageDialog(this, "No user with this username/password combo exists. Try again or click register!");
+		} 
 	}
 	
 	public static void loadUsernamePasswordFile() {
