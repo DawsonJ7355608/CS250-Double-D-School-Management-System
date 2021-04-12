@@ -197,9 +197,9 @@ public class RegisterForm extends JDialog implements ActionListener{
 				//LoginForm.arrUsername.add(txtUsername.getText());
 			    //LoginForm.arrPassword.add(txtPassword.getText());
 			    if (cbbTypeOfUser.getSelectedItem().equals("Administrator")) {
-			    	LoginForm.arrUsers.add(new Administrator(txtName.getText(), txtUsername.getText(), txtPassword.getText(), txtTypeOfFaculty.getText()));
+			    	LoginForm.arrUsers.add(new Administrator(txtName.getText(), txtUsername.getText(), txtPassword.getText()));
 			    } else if (cbbTypeOfUser.getSelectedItem().equals("Professor")) {
-			    	LoginForm.arrUsers.add(new Professor(txtName.getText(), txtUsername.getText(), txtPassword.getText(), txtTypeOfFaculty.getText()));
+			    	LoginForm.arrUsers.add(new Professor(txtName.getText(), txtUsername.getText(), txtPassword.getText()));
 			    } else if (cbbTypeOfUser.getSelectedItem().equals("Student")) {
 			    	LoginForm.arrUsers.add(new Student(txtName.getText(), txtUsername.getText(), txtUsername.getText()));
 			    } else {

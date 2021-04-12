@@ -4,6 +4,15 @@ import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -14,7 +23,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
 
-public class Homepage extends JFrame {
+public class Homepage extends JFrame implements WindowListener, ActionListener{
 
 	private JPanel contentPane;
 	private JTable tblClasses;
@@ -29,7 +38,7 @@ public class Homepage extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					User admin = new Administrator("Jeff", "jeff", "jeff", "Math");
+					User admin = new Administrator("Jeff", "jeff", "jeff");
 					Homepage frame = new Homepage(admin);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -43,6 +52,7 @@ public class Homepage extends JFrame {
 	 * Create the frame.
 	 */
 	public Homepage(User u) {
+		setTitle("Homepage");
 		if(u instanceof Student) {
 			setTitle("Student Homepage");
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -191,28 +201,28 @@ public class Homepage extends JFrame {
 			tblClasses.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tblClasses.setModel(new DefaultTableModel(
 				new Object[][] {
-					{"Class Number", "Time/Days", "Length", "Credit Value", "Students"},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
-					{null, null, null, null, null},
+					{"Class Number", "Time/Days", "Length", "Credit Value"},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
+					{null, null, null, null},
 				},
 				new String[] {
-					"New column", "New column", "New column", "New column", "New column"
+					"New column", "New column", "New column", "New column"
 				}
 			));
 			GridBagConstraints gbc_tblProfessor = new GridBagConstraints();
@@ -284,28 +294,28 @@ public class Homepage extends JFrame {
 			tblClasses.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			tblClasses.setModel(new DefaultTableModel(
 				new Object[][] {
-					{"Name", "Professor", "Class No.", "Days/Times", "Length", "Credit Value", "Students"},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
+					{"Name", "Professor", "Class No.", "Days/Times", "Length", "Credit Value"},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
+					{null, null, null, null, null, null},
 				},
 				new String[] {
-					"New column", "New column", "New column", "New column", "New column", "New column", "New column"
+					"New column", "New column", "New column", "New column", "New column", "New column"
 				}
 			));
 			GridBagConstraints gbc_tblAdministrator = new GridBagConstraints();
@@ -324,7 +334,97 @@ public class Homepage extends JFrame {
 			gbc_lblNewLabel_2.gridx = 1;
 			gbc_lblNewLabel_2.gridy = 2;
 			contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
+			
+			pack();
+			this.addWindowListener(this);
 		}
 	}
 
+	public static void saveUserToFile() {
+		File output = new File("src/UsernamePassword/");
+		try {
+			BufferedWriter write = new BufferedWriter(new FileWriter(output));
+			//write.write(str);
+			for (User u : LoginForm.arrUsers) {
+				if(u instanceof Administrator) {
+					write.write("Administrator " + u.getName() + " " + u.getUsername() + " " + u.getPassword() + " ");
+					for (Course c : Administrator.arrCourses) {
+						write.write(c.getName() + " " + c.getSubject() + " " + c.getAdministrator() + " " + c.getProfessor() + " " + 
+									c.getClassNumber() + " " + c.getCreditValue() + " " + c.getLengthOfCourse() + " " + c.getLengthOfCourse()
+									+ " " + c.getTimeAndDays());
+					}
+				} else if(u instanceof Professor) {
+					write.write("Professor " + u.getName() + " " + u.getUsername() + " " + u.getPassword());
+					for (Course c : Administrator.arrCourses) {
+						write.write(c.getName() + " " + c.getSubject() + " " + c.getAdministrator() + " " + c.getProfessor() + " " + 
+									c.getClassNumber() + " " + c.getCreditValue() + " " + c.getLengthOfCourse() + " " + c.getLengthOfCourse()
+									+ " " + c.getTimeAndDays());
+					}
+				} else if(u instanceof Student) {
+					write.write("Student " + u.getName() + " " + u.getUsername() + " " + u.getPassword());
+					for (Course c : Administrator.arrCourses) {
+						write.write(c.getName() + " " + c.getSubject() + " " + c.getAdministrator() + " " + c.getProfessor() + " " + 
+									c.getClassNumber() + " " + c.getCreditValue() + " " + c.getLengthOfCourse() + " " + c.getLengthOfCourse()
+									+ " " + c.getTimeAndDays());
+					}
+				}
+			}
+			write.close();
+		} catch (FileNotFoundException fnfe) {
+			fnfe.printStackTrace();
+			System.err.println("ERROR: file not found.");
+		} catch (IOException ioe) {
+			ioe.printStackTrace();
+			System.err.println("ERROR: IO exception.");
+		}
+	}
+
+	@Override
+	public void windowOpened(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowClosing(WindowEvent e) {
+		// TODO Auto-generated method stub
+		saveUserToFile();
+	}
+
+	@Override
+	public void windowClosed(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowIconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeiconified(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowActivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void windowDeactivated(WindowEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	
 }

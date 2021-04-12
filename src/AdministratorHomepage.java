@@ -95,28 +95,28 @@ public class AdministratorHomepage extends JFrame implements ActionListener{
 		tblAdministrator.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tblAdministrator.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Name", "Professor", "Class No.", "Days/Times", "Length", "Credit Value", "Students"},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
-				{null, null, null, null, null, null, null},
+				{"Name", "Professor", "Class No.", "Days/Times", "Length", "Credit Value"},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
+				{null, null, null, null, null, null},
 			},
 			new String[] {
-				"New column", "New column", "New column", "New column", "New column", "New column", "New column"
+				"New column", "New column", "New column", "New column", "New column", "New column"
 			}
 		));
 		GridBagConstraints gbc_tblAdministrator = new GridBagConstraints();
@@ -126,6 +126,14 @@ public class AdministratorHomepage extends JFrame implements ActionListener{
 		gbc_tblAdministrator.gridx = 0;
 		gbc_tblAdministrator.gridy = 1;
 		contentPane.add(tblAdministrator, gbc_tblAdministrator);
+		
+		JButton btnSaveUser = new JButton("Save User to File");
+		btnSaveUser.setFont(new Font("Tahoma", Font.PLAIN, 14));
+		GridBagConstraints gbc_btnSaveUser = new GridBagConstraints();
+		gbc_btnSaveUser.insets = new Insets(0, 0, 0, 5);
+		gbc_btnSaveUser.gridx = 0;
+		gbc_btnSaveUser.gridy = 2;
+		contentPane.add(btnSaveUser, gbc_btnSaveUser);
 		
 		JLabel lblNewLabel_2 = new JLabel("Logged in as an Administrator");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));

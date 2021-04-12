@@ -94,28 +94,28 @@ public class ProfessorHomepage extends JFrame implements ActionListener{
 		tblProfessor.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		tblProfessor.setModel(new DefaultTableModel(
 			new Object[][] {
-				{"Class Number", "Time/Days", "Length", "Credit Value", "Students"},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
-				{null, null, null, null, null},
+				{"Class Number", "Time/Days", "Length", "Credit Value"},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
+				{null, null, null, null},
 			},
 			new String[] {
-				"New column", "New column", "New column", "New column", "New column"
+				"New column", "New column", "New column", "New column"
 			}
 		));
 		GridBagConstraints gbc_tblProfessor = new GridBagConstraints();

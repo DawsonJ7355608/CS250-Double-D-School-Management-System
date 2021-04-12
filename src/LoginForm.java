@@ -37,8 +37,6 @@ public class LoginForm extends JFrame implements ActionListener {
 	private JTextField txtUsername;
 	private JButton btnRegister;
 	private JButton btnLogin;
-	public static ArrayList<String> arrUsername;
-	public static ArrayList<String> arrPassword;
 	public static ArrayList<User> arrUsers;
 	private JPasswordField txtPassword;
 	private JComboBox<String> cbbUserType;
@@ -112,8 +110,6 @@ public class LoginForm extends JFrame implements ActionListener {
 		contentPane.add(cbbUserType);
 		btnLogin.addActionListener(this); //attach listener to login button
 		
-		arrUsername = new ArrayList<>();
-		arrPassword = new ArrayList<>();
 		arrUsers = new ArrayList<>();
 	}
 
@@ -148,8 +144,6 @@ public class LoginForm extends JFrame implements ActionListener {
 			String line = file.readLine();
 			while(line != null) {
 				String[] temp = line.split(", ");
-				arrUsername.add(temp[0]);
-				arrPassword.add(temp[1]);
 				line = file.readLine();
 			}
 			file.close();
@@ -162,7 +156,7 @@ public class LoginForm extends JFrame implements ActionListener {
 			}
 		} 
 	
-	public static void saveUsernamePasswordFile() {
+	/*public static void saveUsernamePasswordFile() {
 		File output = new File("src/UsernamePassword/");
 		try {
 			BufferedWriter write = new BufferedWriter(new FileWriter(output));
@@ -174,7 +168,7 @@ public class LoginForm extends JFrame implements ActionListener {
 			ioe.printStackTrace();
 			System.err.println("ERROR: IO exception.");
 		}
-		}
+		}*/
 	}
 
 
