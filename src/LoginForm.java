@@ -133,7 +133,8 @@ public class LoginForm extends JFrame implements ActionListener {
 					home.setVisible(true);
 					break;
 				}
-			}JOptionPane.showMessageDialog(this, "No user with this username/password combo exists. Try again or click register!");
+			}JOptionPane.showMessageDialog(this, "No user with this username/password combo exists. "
+					+ "Try again or click register!");
 		} 
 	}
 	
@@ -143,7 +144,40 @@ public class LoginForm extends JFrame implements ActionListener {
 			BufferedReader file = new BufferedReader(new FileReader(input));
 			String line = file.readLine();
 			while(line != null) {
-				String[] temp = line.split(", ");
+				String[] temp = line.split(" ");
+				if(temp[0].equals("")) {
+					
+				} else if (temp[0].equals("Administrator")) {
+					Administrator a = new Administrator(temp[1], temp[2], temp[3]);
+					arrUsers.add(a);
+					for (int i = 4; i < temp.length; i++) {
+						if(temp[i].equals("Course")) {
+							Administrator.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
+									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
+						}
+					}
+				} else if(temp[0].equals("Professor")) {
+					Professor p = new Professor(temp[1], temp[2], temp[3]);
+					arrUsers.add(p);
+					for (int i = 4; i < temp.length; i++) {
+						if(temp[i].equals("Course")) {
+							Professor.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
+									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
+						}
+					}
+				} else if(temp[0].equals("Student")) {
+					Student s = new Student(temp[1], temp[2], temp[3]);
+					arrUsers.add(s);
+					for (int i = 4; i < temp.length; i++) {
+						if(temp[i].equals("Course")) {
+							Student.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
+									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
+						}
+					}
+				} else {
+					throw new IOException("Error: some line saved to the file contains an unrecognized flag and "
+							+ "prevented proper loading. Check file to resolve the loading error");
+				}
 				line = file.readLine();
 			}
 			file.close();
@@ -152,7 +186,12 @@ public class LoginForm extends JFrame implements ActionListener {
 				System.err.println("ERROR: file not found.");
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
-				System.err.println("ERROR: IO exception.");
+				System.err.print("ERROR: IO exception: ");
+				System.err.print(ioe.getMessage());
+			} catch (NumberFormatException nfe) {
+				nfe.printStackTrace();
+				System.err.print("ERROR: NumberFormat exception: ");
+				System.err.print(nfe.getMessage());
 			}
 		} 
 	
