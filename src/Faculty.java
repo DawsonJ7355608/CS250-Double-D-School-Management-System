@@ -1,22 +1,10 @@
 
 public abstract class Faculty extends User {
 
-	protected String typeOfFaculty; //typeOfFaculty refers to specifically what department the faculty member belongs to.
-	
-	/* Getters and Setters */
-	public String getTypeOfFaculty() {
-		return typeOfFaculty;
-	}
-
-	public void setTypeOfFaculty(String typeOfFaculty) {
-		this.typeOfFaculty = typeOfFaculty;
-	}
-
 	/* constructors */
 	public Faculty() {}
-	public Faculty(String name, String username, String password, String typeOfFaculty) {
+	public Faculty(String name, String username, String password) {
 		super(name, username, password);
-		this.typeOfFaculty = typeOfFaculty;
 	}
 	
 	@Override
@@ -32,7 +20,7 @@ public abstract class Faculty extends User {
 	}
 	
 	public String toString() {
-		return "User " + name + ", Department of Faculty Member: " + typeOfFaculty;
+		return "User " + name;
 	}
 
 }

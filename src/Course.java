@@ -17,6 +17,7 @@ public class Course {
 	protected double creditValue;
 	protected List<Student> studentsEnrolled;
 	protected String subject;
+	protected String name;
 	
 	/**
 	 * Constructor for Course class
@@ -27,7 +28,7 @@ public class Course {
 	 * @param creditValue
 	 * @param subject
 	 */
-	public Course(String professor, String administrator, int classNumber, String timeAndDays, String lengthOfCourse, double creditValue, String subject) {
+	public Course(String professor, String administrator, int classNumber, String timeAndDays, String lengthOfCourse, double creditValue, String subject, String name) {
 		super();
 		this.professor = professor;
 		this.administrator = administrator;
@@ -37,9 +38,34 @@ public class Course {
 		this.creditValue = creditValue;
 		this.studentsEnrolled = new ArrayList<>();
 		this.subject = subject;
+		this.name = name;
 	}
 
 	/* Getters and Setters */
+	public String getAdministrator() {
+		return administrator;
+	}
+
+	public void setAdministrator(String administrator) {
+		this.administrator = administrator;
+	}
+
+	public String getSubject() {
+		return subject;
+	}
+
+	public void setSubject(String subject) {
+		this.subject = subject;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getProfessor() {
 		return professor;
 	}

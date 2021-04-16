@@ -32,6 +32,7 @@ public abstract class User extends Object{
 	public void setLoggedOn(boolean isLoggedOn) {
 		this.isLoggedOn = isLoggedOn;
 	}
+
 	
 	/* constructors */
 	public User() {}

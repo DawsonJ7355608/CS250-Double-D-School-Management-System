@@ -37,8 +37,7 @@ public class LoginForm extends JFrame implements ActionListener {
 	private JTextField txtUsername;
 	private JButton btnRegister;
 	private JButton btnLogin;
-	public static ArrayList<String> arrUsername;
-	public static ArrayList<String> arrPassword;
+	public static ArrayList<User> arrUsers;
 	private JPasswordField txtPassword;
 	private JComboBox<String> cbbUserType;
 	private JLabel lblUserType;
@@ -51,11 +50,11 @@ public class LoginForm extends JFrame implements ActionListener {
 			public void run() {
 				try {
 					LoginForm frame = new LoginForm();
+					loadUserFromFile();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				loadUsernamePasswordFile();
 			}
 		});
 	}
@@ -111,8 +110,7 @@ public class LoginForm extends JFrame implements ActionListener {
 		contentPane.add(cbbUserType);
 		btnLogin.addActionListener(this); //attach listener to login button
 		
-		arrUsername = new ArrayList<>();
-		arrPassword = new ArrayList<>();
+		arrUsers = new ArrayList<>();
 	}
 
 	@SuppressWarnings("deprecation")
@@ -123,34 +121,77 @@ public class LoginForm extends JFrame implements ActionListener {
 			this.setEnabled(false);
 			frame.setVisible(true);
 		} else if(e.getSource() == btnLogin) {
+			
+			//Safely get login details from form
 			String username = txtUsername.getText();
-			int index = arrUsername.indexOf(username);
-			if(index < 0) {
-				JOptionPane.showMessageDialog(this, "The user is not exist!");
-			} else {
-				String password = txtPassword.getText();
-				if(arrPassword.get(index).equals(password)) {
-					/*MainForm main = new MainForm(this, false);
-					this.setEnabled(false);
-					txtUsername.setText("");
+			char[] chPassword = txtPassword.getPassword();
+			String strPassword ="";
+			for (char ch : chPassword) strPassword = strPassword + ch;
+			
+			//test all users for login credentials
+			boolean doesUserExist = false;
+			for (User u : arrUsers) {
+				if(u.getUsername().equals(username) && u.getPassword().equals(strPassword)) { //if username and pass mach a user
+					Homepage home = new Homepage(u); //call homepage constructor
+					txtUsername.setText(""); //clear text
 					txtPassword.setText("");
-					main.setVisible(true);*/
-					
-				} else 
-					JOptionPane.showMessageDialog(this, "The username and password do not match!");
+					doesUserExist = true;
+					this.setEnabled(false);
+					this.setVisible(false);
+					home.setEnabled(true); //enable homepage visible
+					home.setVisible(true); //make homepage visible
+					break;
+				}
+			} if (!doesUserExist) {
+				JOptionPane.showMessageDialog(this, "No user with this username/password combo exists. " //tell user doens't exist
+						+ "Try again or click register!");
 			}
-		}
+		} 
 	}
 	
-	public static void loadUsernamePasswordFile() {
+	public static void loadUserFromFile() {
 		File input = new File("src/UsernamePassword/");
 		try {
 			BufferedReader file = new BufferedReader(new FileReader(input));
 			String line = file.readLine();
 			while(line != null) {
-				String[] temp = line.split(", ");
-				arrUsername.add(temp[0]);
-				arrPassword.add(temp[1]);
+				String[] temp = line.split(" ");
+				if(temp[0].equals("")) {
+					
+				} else if (temp[0].equals("Administrator")) {
+					Administrator a = new Administrator(temp[1], temp[2], temp[3]);
+					arrUsers.add(a);
+					for (int i = 4; i < temp.length; i++) {
+						if(temp[i].equals("Course")) {
+							Administrator.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
+									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
+						}
+						i+=8; //skip items that are obviously not the "Course" flag.
+					}
+				} else if(temp[0].equals("Professor")) {
+					Professor p = new Professor(temp[1], temp[2], temp[3]);
+					arrUsers.add(p);
+					for (int i = 4; i < temp.length; i++) {
+						if(temp[i].equals("Course")) {
+							Professor.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
+									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
+						}
+						i+=8; //skip items that are obviously not the "Course" flag.
+					}
+				} else if(temp[0].equals("Student")) {
+					Student s = new Student(temp[1], temp[2], temp[3]);
+					arrUsers.add(s);
+					for (int i = 4; i < temp.length; i++) {
+						if(temp[i].equals("Course")) {
+							Student.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
+									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
+						}
+						i+=8; //skip items that are obviously not the "Course" flag.
+					}
+				} else {
+					throw new IOException("Error: a line saved to the file contains an unrecognized flag and "
+							+ "prevented proper loading. Check file for bad flags to resolve the loading error");
+				}
 				line = file.readLine();
 			}
 			file.close();
@@ -159,11 +200,16 @@ public class LoginForm extends JFrame implements ActionListener {
 				System.err.println("ERROR: file not found.");
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
-				System.err.println("ERROR: IO exception.");
+				System.err.print("ERROR: IO exception: ");
+				System.err.print(ioe.getMessage() + "\n");
+			} catch (NumberFormatException nfe) {
+				nfe.printStackTrace();
+				System.err.print("ERROR: NumberFormat exception: ");
+				System.err.print(nfe.getMessage() + "\n");
 			}
 		} 
 	
-	public static void saveUsernamePasswordFile() {
+	/*public static void saveUsernamePasswordFile() {
 		File output = new File("src/UsernamePassword/");
 		try {
 			BufferedWriter write = new BufferedWriter(new FileWriter(output));
@@ -175,7 +221,7 @@ public class LoginForm extends JFrame implements ActionListener {
 			ioe.printStackTrace();
 			System.err.println("ERROR: IO exception.");
 		}
-		}
+		}*/
 	}
 
 

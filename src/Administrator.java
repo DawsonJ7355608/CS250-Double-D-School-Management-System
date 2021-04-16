@@ -1,11 +1,13 @@
+import java.util.ArrayList;
 
 public class Administrator extends Faculty {
 
+	public static ArrayList<Course> arrCourses;
 	
-	
-	public Administrator(String name, String username, String password, String typeOfFaculty) {
+	public Administrator(String name, String username, String password) {
 		
-		super(name, username, password, typeOfFaculty);
+		super(name, username, password);
+		arrCourses = new ArrayList<>();
 	}
 	
 	@Override

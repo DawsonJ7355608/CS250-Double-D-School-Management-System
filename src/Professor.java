@@ -1,9 +1,10 @@
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Professor extends Faculty {
 
-	List<Course> currentClasses = new ArrayList<>();
+	public static ArrayList<Course> arrCourses;
 	
 	/**
 	 * Constructor for professor
@@ -12,9 +13,10 @@ public class Professor extends Faculty {
 	 * @param password
 	 * @param typeOfFaculty
 	 */
-	public Professor(String name, String username, String password, String typeOfFaculty) {
+	public Professor(String name, String username, String password) {
 		
-		super(name, username, password,typeOfFaculty);
+		super(name, username, password);
+		arrCourses = new ArrayList<>();
 	}
 	@Override
 	public boolean login() {

@@ -147,7 +147,7 @@ public class SearchForm extends JDialog implements ActionListener{
 		if(e.getSource()==btnOk) {
 			dispose();
 		} else if(e.getSource() == btnAddCourse) {
-			
+			//tblSearchResults.getSelected
 		}
 	}
 
