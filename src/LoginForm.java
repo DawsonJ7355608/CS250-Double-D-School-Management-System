@@ -50,11 +50,11 @@ public class LoginForm extends JFrame implements ActionListener {
 			public void run() {
 				try {
 					LoginForm frame = new LoginForm();
+					loadUserFromFile();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
-				loadUsernamePasswordFile();
 			}
 		});
 	}
@@ -121,24 +121,35 @@ public class LoginForm extends JFrame implements ActionListener {
 			this.setEnabled(false);
 			frame.setVisible(true);
 		} else if(e.getSource() == btnLogin) {
+			
+			//Safely get login details from form
 			String username = txtUsername.getText();
-			String password = txtPassword.getText();
+			char[] chPassword = txtPassword.getPassword();
+			String strPassword ="";
+			for (char ch : chPassword) strPassword = strPassword + ch;
+			
+			//test all users for login credentials
+			boolean doesUserExist = false;
 			for (User u : arrUsers) {
-				if(u.getUsername().equals(username) && u.getPassword().equals(password)) {
-					Homepage home = new Homepage(u);
-					this.setEnabled(false);
-					txtUsername.setText("");
+				if(u.getUsername().equals(username) && u.getPassword().equals(strPassword)) { //if username and pass mach a user
+					Homepage home = new Homepage(u); //call homepage constructor
+					txtUsername.setText(""); //clear text
 					txtPassword.setText("");
-					home.setEnabled(true);
-					home.setVisible(true);
+					doesUserExist = true;
+					this.setEnabled(false);
+					this.setVisible(false);
+					home.setEnabled(true); //enable homepage visible
+					home.setVisible(true); //make homepage visible
 					break;
 				}
-			}JOptionPane.showMessageDialog(this, "No user with this username/password combo exists. "
-					+ "Try again or click register!");
+			} if (!doesUserExist) {
+				JOptionPane.showMessageDialog(this, "No user with this username/password combo exists. " //tell user doens't exist
+						+ "Try again or click register!");
+			}
 		} 
 	}
 	
-	public static void loadUsernamePasswordFile() {
+	public static void loadUserFromFile() {
 		File input = new File("src/UsernamePassword/");
 		try {
 			BufferedReader file = new BufferedReader(new FileReader(input));
@@ -155,6 +166,7 @@ public class LoginForm extends JFrame implements ActionListener {
 							Administrator.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
 									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
 						}
+						i+=8; //skip items that are obviously not the "Course" flag.
 					}
 				} else if(temp[0].equals("Professor")) {
 					Professor p = new Professor(temp[1], temp[2], temp[3]);
@@ -164,6 +176,7 @@ public class LoginForm extends JFrame implements ActionListener {
 							Professor.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
 									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
 						}
+						i+=8; //skip items that are obviously not the "Course" flag.
 					}
 				} else if(temp[0].equals("Student")) {
 					Student s = new Student(temp[1], temp[2], temp[3]);
@@ -173,10 +186,11 @@ public class LoginForm extends JFrame implements ActionListener {
 							Student.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
 									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
 						}
+						i+=8; //skip items that are obviously not the "Course" flag.
 					}
 				} else {
-					throw new IOException("Error: some line saved to the file contains an unrecognized flag and "
-							+ "prevented proper loading. Check file to resolve the loading error");
+					throw new IOException("Error: a line saved to the file contains an unrecognized flag and "
+							+ "prevented proper loading. Check file for bad flags to resolve the loading error");
 				}
 				line = file.readLine();
 			}
@@ -187,11 +201,11 @@ public class LoginForm extends JFrame implements ActionListener {
 			} catch (IOException ioe) {
 				ioe.printStackTrace();
 				System.err.print("ERROR: IO exception: ");
-				System.err.print(ioe.getMessage());
+				System.err.print(ioe.getMessage() + "\n");
 			} catch (NumberFormatException nfe) {
 				nfe.printStackTrace();
 				System.err.print("ERROR: NumberFormat exception: ");
-				System.err.print(nfe.getMessage());
+				System.err.print(nfe.getMessage() + "\n");
 			}
 		} 
 	

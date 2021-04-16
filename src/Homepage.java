@@ -17,6 +17,7 @@ import java.io.IOException;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JTextField;
@@ -38,6 +39,9 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
+					JOptionPane.showMessageDialog(null, "Warning: trying to save when window closes will cause unexpected "
+							+ "termination of the program. Use this runnable for testing the GUI only, and choose cancel in"
+							+ " the onWindowClosing() dialog.");
 					User admin = new Administrator("Jeff", "jeff", "jeff");
 					Homepage frame = new Homepage(admin);
 					frame.setVisible(true);
@@ -349,24 +353,27 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 				if(u instanceof Administrator) {
 					write.write("Administrator " + u.getName() + " " + u.getUsername() + " " + u.getPassword() + " ");
 					for (Course c : Administrator.arrCourses) {
-						write.write(c.getName() + " " + c.getSubject() + " " + c.getAdministrator() + " " + c.getProfessor() + " " + 
-									c.getClassNumber() + " " + c.getCreditValue() + " " + c.getLengthOfCourse() + " " + c.getLengthOfCourse()
-									+ " " + c.getTimeAndDays());
+						write.write("Course " + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
+								c.getTimeAndDays() + " " + c.getLengthOfCourse() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
+								c.getName());
 					}
+					write.newLine();
 				} else if(u instanceof Professor) {
 					write.write("Professor " + u.getName() + " " + u.getUsername() + " " + u.getPassword());
 					for (Course c : Administrator.arrCourses) {
-						write.write(c.getName() + " " + c.getSubject() + " " + c.getAdministrator() + " " + c.getProfessor() + " " + 
-									c.getClassNumber() + " " + c.getCreditValue() + " " + c.getLengthOfCourse() + " " + c.getLengthOfCourse()
-									+ " " + c.getTimeAndDays());
+						write.write("Course " + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
+								c.getTimeAndDays() + " " + c.getLengthOfCourse() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
+								c.getName());
 					}
+					write.newLine();
 				} else if(u instanceof Student) {
 					write.write("Student " + u.getName() + " " + u.getUsername() + " " + u.getPassword());
 					for (Course c : Administrator.arrCourses) {
-						write.write(c.getName() + " " + c.getSubject() + " " + c.getAdministrator() + " " + c.getProfessor() + " " + 
-									c.getClassNumber() + " " + c.getCreditValue() + " " + c.getLengthOfCourse() + " " + c.getLengthOfCourse()
-									+ " " + c.getTimeAndDays());
+						write.write("Course " + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
+								c.getTimeAndDays() + " " + c.getLengthOfCourse() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
+								c.getName());
 					}
+					write.newLine();
 				}
 			}
 			write.close();
@@ -388,9 +395,21 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 	@Override
 	public void windowClosing(WindowEvent e) {
 		// TODO Auto-generated method stub
-		saveUserToFile();
+		int n = JOptionPane.showConfirmDialog(this, "You have changes that have not been saved. Save now?", "Unsaved Changes", 
+																							JOptionPane.YES_NO_CANCEL_OPTION);
+		if (n==1) {//User chooses No
+			this.setEnabled(false);
+			this.dispose();
+			
+		} else if (n==2) { //User cancels
+			System.out.println("Nothing happens");
+		} else if (n==0) { //User chooses Yes
+			saveUserToFile();
+			System.out.println("User saved to file.");
+			this.dispose();
+		}
+		
 	}
-
 	@Override
 	public void windowClosed(WindowEvent e) {
 		// TODO Auto-generated method stub

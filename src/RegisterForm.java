@@ -22,17 +22,18 @@ import java.awt.Font;
 import javax.swing.SwingConstants;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
+import javax.swing.JPasswordField;
 
 public class RegisterForm extends JDialog implements ActionListener{
 
 	private JPanel contentPane;
 	private JTextField txtUsername;
-	private JTextField txtPassword;
 	private JTextField txtTypeOfFaculty;
 	private JTextField txtName;
 	private JButton btnRegister;
 	private JButton btnCancel;
 	private JComboBox cbbTypeOfUser;
+	private JPasswordField txtPassword;
 
 	/**
 	 * Launch the application.
@@ -137,15 +138,14 @@ public class RegisterForm extends JDialog implements ActionListener{
 		gbc_lblNewLabel_3.gridy = 6;
 		contentPane.add(lblNewLabel_3, gbc_lblNewLabel_3);
 		
-		txtPassword = new JTextField();
-		txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 18));
+		txtPassword = new JPasswordField();
+		txtPassword.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_txtPassword = new GridBagConstraints();
 		gbc_txtPassword.insets = new Insets(0, 0, 5, 0);
 		gbc_txtPassword.fill = GridBagConstraints.HORIZONTAL;
 		gbc_txtPassword.gridx = 1;
 		gbc_txtPassword.gridy = 6;
 		contentPane.add(txtPassword, gbc_txtPassword);
-		txtPassword.setColumns(10);
 		
 		JLabel lblNewLabel_4 = new JLabel("Type of Faculty (if student, leave blank): ");
 		lblNewLabel_4.setFont(new Font("Tahoma", Font.PLAIN, 18));
@@ -189,7 +189,14 @@ public class RegisterForm extends JDialog implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnRegister) {
-			if(txtUsername.getText().isEmpty() || txtPassword.getText().isEmpty()) {
+			
+			String username = txtUsername.getText();
+			char[] chPassword = txtPassword.getPassword();
+			String password = "";
+			for (char ch : chPassword) password += ch;
+			
+			
+			if(username.isEmpty() || password.isEmpty()) {
 				JOptionPane.showMessageDialog(this, "You need to input username and password to create an account", 
 										      "Error", JOptionPane.ERROR_MESSAGE);
 				return;
@@ -197,15 +204,39 @@ public class RegisterForm extends JDialog implements ActionListener{
 				//LoginForm.arrUsername.add(txtUsername.getText());
 			    //LoginForm.arrPassword.add(txtPassword.getText());
 			    if (cbbTypeOfUser.getSelectedItem().equals("Administrator")) {
-			    	LoginForm.arrUsers.add(new Administrator(txtName.getText(), txtUsername.getText(), txtPassword.getText()));
+			    	Administrator a = new Administrator(txtName.getText(), username, password);
+			    	
+			    	//Prevent registration of duplicates
+			    	if (!LoginForm.arrUsers.contains(a)) {
+			    		LoginForm.arrUsers.add(a);
+			    		System.out.println("Inserted new account to the system");
+			    	}
+			    	else JOptionPane.showMessageDialog(this, "User already exists in database, please log in instead.");
+			    	
 			    } else if (cbbTypeOfUser.getSelectedItem().equals("Professor")) {
-			    	LoginForm.arrUsers.add(new Professor(txtName.getText(), txtUsername.getText(), txtPassword.getText()));
+			    	Professor p = new Professor(txtName.getText(), username, password);
+			    	
+			    	//Prevent registration of duplicates
+			    	if (!LoginForm.arrUsers.contains(p)) {
+			    		LoginForm.arrUsers.add(p);
+			    		System.out.println("Inserted new account to the system");
+			    	}
+			    	else JOptionPane.showMessageDialog(this, "User already exists in database, please log in instead.");
+			    	
 			    } else if (cbbTypeOfUser.getSelectedItem().equals("Student")) {
-			    	LoginForm.arrUsers.add(new Student(txtName.getText(), txtUsername.getText(), txtUsername.getText()));
+			    	
+			    	Student s = new Student(txtName.getText(), username, password);
+			    	
+			    	//Prevent registration of duplicates
+			    	if (!LoginForm.arrUsers.contains(s)) {
+			    		LoginForm.arrUsers.add(s);
+			    		System.out.println("Inserted new account to the system");
+			    	}
+			    	else JOptionPane.showMessageDialog(this, "User already exists in database, please log in instead.");
+			    	
 			    } else {
 			    	
 			    }
-			    System.out.println("Inserted new account to the system");
 			    setModal(true);
 			    getOwner().setEnabled(true);
 			    this.dispose();
