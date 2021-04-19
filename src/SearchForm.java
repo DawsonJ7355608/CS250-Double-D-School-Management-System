@@ -19,7 +19,6 @@ public class SearchForm extends JDialog implements ActionListener{
 	private final JPanel contentPanel = new JPanel();
 	private JTable tblSearchResults;
 	private JButton btnAddCourse;
-	private JButton btnOk;
 
 	/**
 	 * Launch the application.
@@ -38,8 +37,8 @@ public class SearchForm extends JDialog implements ActionListener{
 	 * Create the dialog.
 	 */
 	public SearchForm(Administrator a, Professor p, Student s) {
-		setTitle("Search results");
-		setBounds(100, 100, 700, 850);
+		setTitle("Add a Course");
+		setBounds(100, 100, 1220, 309);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -53,64 +52,32 @@ public class SearchForm extends JDialog implements ActionListener{
 			tblSearchResults = new JTable();
 			tblSearchResults.setModel(new DefaultTableModel(
 				new Object[][] {
-					{"Subject", "Course No.", "Name", "Dates", "Days/Time", "Cr/Hr", "Instructors"},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
+					{"Subject", "Course No.", "Name", "Dates", "Days/Time", "Cr/Hr", "Instructors", "Administrator", "Students"},
+					{"CS", "101", "Exploring Creative Computing", "08/23-12/03", "MW 8:00am - 9:20am", "3.0", "Double click to view", "Double click to view", "Double click to view"},
+					{"CS", "116", "Web Technology I", null, null, "3.0", "Double click to view", "Double click to view", "Double click to view"},
+					{"CS", "234", "Algorithms and Problem Solving I", null, null, "4.0", "Double click to view", "Double click to view", "Double click to view"},
+					{"CS", "250", "Algorithms and Problem Solving II", null, null, "4.0", "Double click to view", "Double click to view", "Double click to view"},
+					{"CS", "275", "Mathematical Foundations of Algorithms", null, null, "4.0", "Double click to view", "Double click to view", "Double click to view"},
+					{"CS", "313", "Networking and Telecommunications", null, null, "4.0", "Double click to view", "Double click to view", "Double click to view"},
+					{"CS", "341", "Data Structures", null, null, "4.0", "Double click to view", "Double click to view", "Double click to view"},
+					{"CS", "344", "Introduction to Web Programming", null, null, "3.0", "Double click to view", "Double click to view", "Double click to view"},
+					{"CS", "375", "Computer Systems", null, null, "4.0", "Double click to view", "Double click to view", "Double click to view"},
+					{"CS", "385", "Applied Database Management Systems", null, null, "4.0", "Double click to view", "Double click to view", "Double click to view"},
+					{"CS", "405", "Operating Systems", null, null, "3.0", "Double click to view", "Double click to view", "Double click to view"},
+					{"CS", "410", "Software Engineering", null, null, "4.0", "Double click to view", "Double click to view", "Double click to view"},
+					{"CS", "415", "Principles of Programming Languages", null, null, "3.0", "Double click to view", "Double click to view", "Double click to view"},
 				},
 				new String[] {
-					"New column", "New column", "New column", "New column", "New column", "New column", "New column"
+					"New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column", "New column"
 				}
 			));
-			tblSearchResults.getColumnModel().getColumn(0).setPreferredWidth(43);
-			tblSearchResults.getColumnModel().getColumn(1).setPreferredWidth(58);
-			tblSearchResults.getColumnModel().getColumn(2).setPreferredWidth(125);
-			tblSearchResults.getColumnModel().getColumn(5).setPreferredWidth(35);
-			tblSearchResults.getColumnModel().getColumn(6).setPreferredWidth(100);
+			tblSearchResults.getColumnModel().getColumn(0).setPreferredWidth(15);
+			tblSearchResults.getColumnModel().getColumn(0).setMinWidth(1);
+			tblSearchResults.getColumnModel().getColumn(1).setPreferredWidth(15);
+			tblSearchResults.getColumnModel().getColumn(1).setMinWidth(5);
+			tblSearchResults.getColumnModel().getColumn(2).setPreferredWidth(180);
+			tblSearchResults.getColumnModel().getColumn(3).setPreferredWidth(50);
+			tblSearchResults.getColumnModel().getColumn(5).setPreferredWidth(15);
 			tblSearchResults.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			GridBagConstraints gbc_tblSearchResults = new GridBagConstraints();
 			gbc_tblSearchResults.fill = GridBagConstraints.BOTH;
@@ -127,28 +94,12 @@ public class SearchForm extends JDialog implements ActionListener{
 				btnAddCourse.setFont(new Font("Tahoma", Font.PLAIN, 14));
 				buttonPane.add(btnAddCourse);
 			}
-			{
-				btnOk = new JButton("OK");
-				btnOk.setFont(new Font("Tahoma", Font.PLAIN, 14));
-				btnOk.setActionCommand("OK");
-				buttonPane.add(btnOk);
-				getRootPane().setDefaultButton(btnOk);
-			}
 		}
-		
-		//add actionlisteners
-		btnOk.addActionListener(this);
 		btnAddCourse.addActionListener(this);
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
-		if(e.getSource()==btnOk) {
-			dispose();
-		} else if(e.getSource() == btnAddCourse) {
-			//tblSearchResults.getSelected
-		}
 	}
 
 }

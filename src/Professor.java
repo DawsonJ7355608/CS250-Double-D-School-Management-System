@@ -4,7 +4,7 @@ import java.util.List;
 
 public class Professor extends Faculty {
 
-	public static ArrayList<Course> arrCourses;
+	public ArrayList<Course> arrCourses;
 	
 	/**
 	 * Constructor for professor

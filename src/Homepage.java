@@ -31,6 +31,7 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 	private JTextField txtSearch;
 	private JLabel lblWelcomeUser;
 	private JButton btnSearch;
+	private User user;
 
 	/**
 	 * Launch the application.
@@ -40,9 +41,9 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 			public void run() {
 				try {
 					JOptionPane.showMessageDialog(null, "Warning: trying to save when window closes will cause unexpected "
-							+ "termination of the program. Use this runnable for testing the GUI only, and choose cancel in"
+							+ "termination of the program. Use this runnable for testing the GUI only, and choose no/cancel in"
 							+ " the onWindowClosing() dialog.");
-					User admin = new Administrator("Jeff", "jeff", "jeff");
+					User admin = new Administrator("Jeff", "jeff", "jeff"); //Change constructor type to test the GUI.
 					Homepage frame = new Homepage(admin);
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -152,6 +153,7 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 			contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 			
 			//actionlisteners
+			this.user = u;
 			
 		} else if (u instanceof Professor) {
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -349,33 +351,32 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 		try {
 			BufferedWriter write = new BufferedWriter(new FileWriter(output));
 			//write.write(str);
-			for (User u : LoginForm.arrUsers) {
-				if(u instanceof Administrator) {
-					write.write("Administrator " + u.getName() + " " + u.getUsername() + " " + u.getPassword() + " ");
-					for (Course c : Administrator.arrCourses) {
-						write.write("Course " + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
-								c.getTimeAndDays() + " " + c.getLengthOfCourse() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
-								c.getName());
+			
+			/* Write administrators to file */
+			for (Administrator a : LoginForm.arrAdministrators) {
+					write.write("Administrator " + a.getName() + " " + a.getUsername() + " " + a.getPassword() + " ");
+					for (Course c : a.arrCourses) {
+						write.write("Course " + " " + c.getName() + " ");
 					}
-					write.newLine();
-				} else if(u instanceof Professor) {
-					write.write("Professor " + u.getName() + " " + u.getUsername() + " " + u.getPassword());
-					for (Course c : Administrator.arrCourses) {
-						write.write("Course " + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
-								c.getTimeAndDays() + " " + c.getLengthOfCourse() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
-								c.getName());
-					}
-					write.newLine();
-				} else if(u instanceof Student) {
-					write.write("Student " + u.getName() + " " + u.getUsername() + " " + u.getPassword());
-					for (Course c : Administrator.arrCourses) {
-						write.write("Course " + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
-								c.getTimeAndDays() + " " + c.getLengthOfCourse() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
-								c.getName());
-					}
-					write.newLine();
-				}
+					write.write('\n');
 			}
+			
+			for (Professor p : LoginForm.arrProfessors) {
+				write.write("Professor " + p.getName() + " " + p.getUsername() + " " + p.getPassword() + " ");
+				for (Course c : p.arrCourses) {
+					write.write("Course " + " " + c.getName() + " ");
+				}
+				write.write('\n');
+			}
+			
+			for (Student s : LoginForm.arrStudents) {
+				write.write("Student " + s.getName() + " " + s.getUsername() + " " + s.getPassword() + " ");
+				for (Course c : s.arrCourses) {
+					write.write("Course " + " " + c.getName() + " ");
+				}
+				write.write('\n');
+			}
+			
 			write.close();
 		} catch (FileNotFoundException fnfe) {
 			fnfe.printStackTrace();
@@ -443,7 +444,11 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		
+		if(e.getSource() == btnSearch) {
+			if(this.user instanceof Administrator) {
+				//SearchForm search = new SearchForm
+			}
+		}
 	}
 	
 }
