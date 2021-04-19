@@ -126,7 +126,7 @@ public class LoginForm extends JFrame implements ActionListener {
 			String username = txtUsername.getText();
 			char[] chPassword = txtPassword.getPassword();
 			String strPassword ="";
-			for (char ch : chPassword) strPassword = strPassword + ch;
+			for (char ch : chPassword) strPassword = strPassword + ch; //convert from ch[] to string
 			
 			//test all users for login credentials
 			boolean doesUserExist = false;
@@ -149,6 +149,7 @@ public class LoginForm extends JFrame implements ActionListener {
 		} 
 	}
 	
+	//load all users into arrUsers array
 	public static void loadUserFromFile() {
 		File input = new File("src/UsernamePassword/");
 		try {
@@ -156,7 +157,7 @@ public class LoginForm extends JFrame implements ActionListener {
 			String line = file.readLine();
 			while(line != null) {
 				String[] temp = line.split(" ");
-				if(temp[0].equals("")) {
+				if(temp[0].equals("")) { //no user type
 					
 				} else if (temp[0].equals("Administrator")) {
 					Administrator a = new Administrator(temp[1], temp[2], temp[3]);
@@ -208,20 +209,6 @@ public class LoginForm extends JFrame implements ActionListener {
 				System.err.print(nfe.getMessage() + "\n");
 			}
 		} 
-	
-	/*public static void saveUsernamePasswordFile() {
-		File output = new File("src/UsernamePassword/");
-		try {
-			BufferedWriter write = new BufferedWriter(new FileWriter(output));
-			//write.write(str);
-		} catch (FileNotFoundException fnfe) {
-			fnfe.printStackTrace();
-			System.err.println("ERROR: file not found.");
-		} catch (IOException ioe) {
-			ioe.printStackTrace();
-			System.err.println("ERROR: IO exception.");
-		}
-		}*/
 	}
 
 

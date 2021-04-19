@@ -188,21 +188,17 @@ public class RegisterForm extends JDialog implements ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource() == btnRegister) {
-			
+		if(e.getSource() == btnRegister) { //if user selects register
 			String username = txtUsername.getText();
 			char[] chPassword = txtPassword.getPassword();
 			String password = "";
 			for (char ch : chPassword) password += ch;
-			
 			
 			if(username.isEmpty() || password.isEmpty()) {
 				JOptionPane.showMessageDialog(this, "You need to input username and password to create an account", 
 										      "Error", JOptionPane.ERROR_MESSAGE);
 				return;
 			} else {
-				//LoginForm.arrUsername.add(txtUsername.getText());
-			    //LoginForm.arrPassword.add(txtPassword.getText());
 			    if (cbbTypeOfUser.getSelectedItem().equals("Administrator")) {
 			    	Administrator a = new Administrator(txtName.getText(), username, password);
 			    	
@@ -241,7 +237,7 @@ public class RegisterForm extends JDialog implements ActionListener{
 			    getOwner().setEnabled(true);
 			    this.dispose();
 			}
-		} else if (e.getSource() == btnCancel) {
+		} else if (e.getSource() == btnCancel) { //if user selects cancel
 			this.dispose();
 			getOwner().setEnabled(true);
 			setModal(true);
