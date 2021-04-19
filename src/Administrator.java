@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Administrator extends Faculty {
 
-	public static ArrayList<Course> arrCourses;
+	public ArrayList<Course> arrCourses;
 	
 	public Administrator(String name, String username, String password) {
 		

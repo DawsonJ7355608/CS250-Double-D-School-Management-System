@@ -207,8 +207,8 @@ public class RegisterForm extends JDialog implements ActionListener{
 			    	Administrator a = new Administrator(txtName.getText(), username, password);
 			    	
 			    	//Prevent registration of duplicates
-			    	if (!LoginForm.arrUsers.contains(a)) {
-			    		LoginForm.arrUsers.add(a);
+			    	if (!LoginForm.arrAdministrators.contains(a)) {
+			    		LoginForm.arrAdministrators.add(a);
 			    		System.out.println("Inserted new account to the system");
 			    	}
 			    	else JOptionPane.showMessageDialog(this, "User already exists in database, please log in instead.");
@@ -217,8 +217,8 @@ public class RegisterForm extends JDialog implements ActionListener{
 			    	Professor p = new Professor(txtName.getText(), username, password);
 			    	
 			    	//Prevent registration of duplicates
-			    	if (!LoginForm.arrUsers.contains(p)) {
-			    		LoginForm.arrUsers.add(p);
+			    	if (!LoginForm.arrProfessors.contains(p)) {
+			    		LoginForm.arrProfessors.add(p);
 			    		System.out.println("Inserted new account to the system");
 			    	}
 			    	else JOptionPane.showMessageDialog(this, "User already exists in database, please log in instead.");
@@ -228,8 +228,8 @@ public class RegisterForm extends JDialog implements ActionListener{
 			    	Student s = new Student(txtName.getText(), username, password);
 			    	
 			    	//Prevent registration of duplicates
-			    	if (!LoginForm.arrUsers.contains(s)) {
-			    		LoginForm.arrUsers.add(s);
+			    	if (!LoginForm.arrStudents.contains(s)) {
+			    		LoginForm.arrStudents.add(s);
 			    		System.out.println("Inserted new account to the system");
 			    	}
 			    	else JOptionPane.showMessageDialog(this, "User already exists in database, please log in instead.");

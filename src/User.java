@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 
 public abstract class User extends Object{
 	
@@ -6,6 +7,7 @@ public abstract class User extends Object{
 	protected String username;
 	protected String password;
 	protected boolean isLoggedOn;
+	protected ArrayList<User> arrUsers;
 	
 	/* Getters and Setters */
 	public String getUsername() {

@@ -37,11 +37,32 @@ public class LoginForm extends JFrame implements ActionListener {
 	private JTextField txtUsername;
 	private JButton btnRegister;
 	private JButton btnLogin;
-	public static ArrayList<User> arrUsers;
 	private JPasswordField txtPassword;
 	private JComboBox<String> cbbUserType;
 	private JLabel lblUserType;
 
+	//public static ArrayList<User> arrUsers;
+	public static ArrayList<Administrator> arrAdministrators;
+	public static ArrayList<Professor> arrProfessors;
+	public static ArrayList<Student> arrStudents;
+	
+	
+	public static ArrayList<Course> arrPossibleCourses;
+	
+	public Course course101;
+	public Course course116;
+	public Course course234;
+	public Course course250;
+	public Course course275;
+	public Course course313;
+	public Course course341;
+	public Course course344;
+	public Course course375;
+	public Course course385;
+	public Course course405;
+	public Course course410;
+	public Course course415;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -110,7 +131,46 @@ public class LoginForm extends JFrame implements ActionListener {
 		contentPane.add(cbbUserType);
 		btnLogin.addActionListener(this); //attach listener to login button
 		
-		arrUsers = new ArrayList<>();
+		//arrUsers = new ArrayList<>();
+		arrAdministrators = new ArrayList<>();
+		arrProfessors = new ArrayList<>();
+		arrStudents = new ArrayList<>();
+		
+		/* Instantiate list of possible courses
+		 * While not the best solution, this will be a temporary way to allow the forms to handle courses. 
+		 */
+		arrPossibleCourses = new ArrayList<>();
+		
+		//instantiating all possible courses
+		course101 = new Course(null, null, 101, "M/W 8:00am-9:20am", "08/23-12/03", 3.0, "CS", "Exploring Creative Computing");
+		course116 = new Course(null, null, 116, "T/Th 4:00pm-5:20pm", "08/23-12/03", 3.0, "CS", "Web Technology I");
+		course234 = new Course(null, null, 234, "T/Th 10:00am-11:50am", "08/23-12/03", 4.0, "CS", "Algorithms and Problem Solving I");
+		course250 = new Course(null, null, 250, "M/W 10:00am-11:50am", "08/23-12/03", 4.0, "CS", "Algorithms and Problem Solving II");
+		course275 = new Course(null, null, 275, "T/Th 8:00am-9:50am", "08/23-12/03", 4.0, "CS", "Mathematical Foundations of Algorithms");
+		course313 = new Course(null, null, 313, "T/Th 11:00am-12:50am", "08/23-12/03", 4.0, "CS", "Networking and Telecommunications");
+		course341 = new Course(null, null, 341, "M/W 8:00am-9:50am", "08/23-12/03", 4.0, "CS", "Data Structures");
+		course344 = new Course(null, null, 344, "T/Th 1:00pm-2:20pm", "08/23-12/03", 3.0, "CS", "Introduction to Web Programming");
+		course375 = new Course(null, null, 375, "T/Th 7:50pm-9:50pm", "08/23-12/03", 4.0, "CS", "Computer Systems");
+		course385 = new Course(null, null, 385, "M/W 10:00am-11:20am", "08/23-12/03", 4.0, "CS", "Applied Database Management Systems");
+		course405 = new Course(null, null, 405, "T/Th 10:00am-11:20am", "08/23-12/03", 3.0, "CS", "Operating Systems");
+		course410 = new Course(null, null, 410, "T/Th 8:00am-9:50am", "08/23-12/03", 4.0, "CS", "Software Engineering");
+		course415 = new Course(null, null, 415, "M/W 11:00am-12:20pm", "08/23-12/03", 3.0, "CS", "Principles of Programming Languages");
+		
+		//adding all possible courses for demonstration purposes
+		arrPossibleCourses.add(course101);
+		arrPossibleCourses.add(course116);
+		arrPossibleCourses.add(course234);
+		arrPossibleCourses.add(course250);
+		arrPossibleCourses.add(course275);
+		arrPossibleCourses.add(course313);
+		arrPossibleCourses.add(course341);
+		arrPossibleCourses.add(course344);
+		arrPossibleCourses.add(course375);
+		arrPossibleCourses.add(course385);
+		arrPossibleCourses.add(course405);
+		arrPossibleCourses.add(course410);
+		arrPossibleCourses.add(course415);
+		
 	}
 
 	@SuppressWarnings("deprecation")
@@ -130,9 +190,9 @@ public class LoginForm extends JFrame implements ActionListener {
 			
 			//test all users for login credentials
 			boolean doesUserExist = false;
-			for (User u : arrUsers) {
-				if(u.getUsername().equals(username) && u.getPassword().equals(strPassword)) { //if username and pass mach a user
-					Homepage home = new Homepage(u); //call homepage constructor
+			for (Administrator a : arrAdministrators) {
+				if(a.getUsername().equals(username) && a.getPassword().equals(strPassword)) { //if username and pass mach a user
+					Homepage home = new Homepage(a); //call homepage constructor
 					txtUsername.setText(""); //clear text
 					txtPassword.setText("");
 					doesUserExist = true;
@@ -160,33 +220,42 @@ public class LoginForm extends JFrame implements ActionListener {
 					
 				} else if (temp[0].equals("Administrator")) {
 					Administrator a = new Administrator(temp[1], temp[2], temp[3]);
-					arrUsers.add(a);
-					for (int i = 4; i < temp.length; i++) {
-						if(temp[i].equals("Course")) {
-							Administrator.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
-									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
+					LoginForm.arrAdministrators.add(a);
+					if(temp.length>6) {
+						for (int i = 4; i < temp.length; i++) {
+							if(temp[i].equals("Course")) {
+								for(Course c : arrPossibleCourses) {
+									if (c.getName().equals(temp[i+1])) a.arrCourses.add(c);
+								}
+							}
+							i+=1; //skip items that are obviously not the "Course" flag.
 						}
-						i+=8; //skip items that are obviously not the "Course" flag.
 					}
 				} else if(temp[0].equals("Professor")) {
 					Professor p = new Professor(temp[1], temp[2], temp[3]);
-					arrUsers.add(p);
-					for (int i = 4; i < temp.length; i++) {
-						if(temp[i].equals("Course")) {
-							Professor.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
-									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
+					LoginForm.arrProfessors.add(p);
+					if(temp.length>6) {
+						for (int i = 4; i < temp.length; i++) {
+							if(temp[i].equals("Course")) {
+								for(Course c : arrPossibleCourses) {
+									if (c.getName().equals(temp[i+1])) p.arrCourses.add(c);
+								}
+							}
+							i+=1; //skip items that are obviously not the "Course" flag.
 						}
-						i+=8; //skip items that are obviously not the "Course" flag.
 					}
 				} else if(temp[0].equals("Student")) {
 					Student s = new Student(temp[1], temp[2], temp[3]);
-					arrUsers.add(s);
-					for (int i = 4; i < temp.length; i++) {
-						if(temp[i].equals("Course")) {
-							Student.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
-									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
+					LoginForm.arrStudents.add(s);
+					if(temp.length>6) {
+						for (int i = 4; i < temp.length; i++) {
+							if(temp[i].equals("Course")) {
+								for(Course c : arrPossibleCourses) {
+									if (c.getName().equals(temp[i+1])) s.arrCourses.add(c);
+								}
+							}
+							i+=1; //skip items that are obviously not the "Course" flag.
 						}
-						i+=8; //skip items that are obviously not the "Course" flag.
 					}
 				} else {
 					throw new IOException("Error: a line saved to the file contains an unrecognized flag and "
@@ -207,7 +276,7 @@ public class LoginForm extends JFrame implements ActionListener {
 				System.err.print("ERROR: NumberFormat exception: ");
 				System.err.print(nfe.getMessage() + "\n");
 			}
-		} 
+		}
 	
 	/*public static void saveUsernamePasswordFile() {
 		File output = new File("src/UsernamePassword/");

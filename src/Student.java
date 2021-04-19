@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 public class Student extends User {
-
-	public static ArrayList<Course> arrCourses;
+	
+	ArrayList<Course> arrCourses = new ArrayList<>();
 	
 	public Student(String name, String username, String password) {
 		super(name, username, password);
