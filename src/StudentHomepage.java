@@ -26,6 +26,7 @@ public class StudentHomepage extends JFrame implements ActionListener{
 	private JTextField textField;
 	private JLabel lblWelcomeUser;
 	private JButton btnSearch;
+	private JButton btnAdd;
 
 	/**
 	 * Launch the application.
@@ -60,7 +61,7 @@ public class StudentHomepage extends JFrame implements ActionListener{
 		gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 		contentPane.setLayout(gbl_contentPane);
 		
-		lblWelcomeUser = new JLabel("Welcome, ");
+		lblWelcomeUser = new JLabel("Welcome, " + u.name);
 		lblWelcomeUser.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblWelcomeUser = new GridBagConstraints();
 		gbc_lblWelcomeUser.anchor = GridBagConstraints.WEST;
@@ -131,6 +132,13 @@ public class StudentHomepage extends JFrame implements ActionListener{
 		gbc_tblStudent.gridy = 1;
 		contentPane.add(tblStudent, gbc_tblStudent);
 		
+		btnAdd = new JButton("Add Course");
+		GridBagConstraints gbc_btnAdd = new GridBagConstraints();
+		gbc_btnAdd.insets = new Insets(0, 0, 0, 5);
+		gbc_btnAdd.gridx = 0;
+		gbc_btnAdd.gridy = 2;
+		contentPane.add(btnAdd, gbc_btnAdd);
+		
 		JLabel lblNewLabel_2 = new JLabel("Logged in as a Student");
 		lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 		GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -142,6 +150,7 @@ public class StudentHomepage extends JFrame implements ActionListener{
 		
 		//actionlisteners
 		btnSearch.addActionListener(this);
+		btnAdd.addActionListener(this);
 	}
 
 	@Override
@@ -149,6 +158,10 @@ public class StudentHomepage extends JFrame implements ActionListener{
 		// TODO Auto-generated method stub
 		if(e.getSource() == btnSearch) {
 			
+		} else if(e.getSource() == btnAdd) {
+			CourseForm frame = new CourseForm(this, false, u);
+			this.setEnabled(false);
+			frame.setVisible(true);
 		}
 	}
 

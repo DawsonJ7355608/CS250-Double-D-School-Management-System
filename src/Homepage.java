@@ -31,32 +31,35 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 	private JTextField txtSearch;
 	private JLabel lblWelcomeUser;
 	private JButton btnSearch;
+	private JButton btnAdd;
+	private User u;
 
 	/**
 	 * Launch the application.
 	 */
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
 					JOptionPane.showMessageDialog(null, "Warning: trying to save when window closes will cause unexpected "
 							+ "termination of the program. Use this runnable for testing the GUI only, and choose cancel in"
 							+ " the onWindowClosing() dialog.");
-					User admin = new Administrator("Jeff", "jeff", "jeff");
-					Homepage frame = new Homepage(admin);
+					User user = LoginForm.arrUsers.get(1);
+					Homepage frame = new Homepage(user);
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
 			}
 		});
-	}
+	}*/
 
 	/**
 	 * Create the frame.
 	 */
 	public Homepage(User u) {
 		setTitle("Homepage");
+		this.u = u;
 		if(u instanceof Student) {
 			setTitle("Student Homepage");
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -71,7 +74,7 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 			gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 			contentPane.setLayout(gbl_contentPane);
 			
-			lblWelcomeUser = new JLabel("Welcome, ");
+			lblWelcomeUser = new JLabel("Welcome, " + u.name.replace('_', ' '));
 			lblWelcomeUser.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			GridBagConstraints gbc_lblWelcomeUser = new GridBagConstraints();
 			gbc_lblWelcomeUser.anchor = GridBagConstraints.WEST;
@@ -142,6 +145,13 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 			gbc_tblStudent.gridy = 1;
 			contentPane.add(tblClasses, gbc_tblStudent);
 			
+			btnAdd = new JButton("Add Course");
+			GridBagConstraints gbc_btnAdd = new GridBagConstraints();
+			gbc_btnAdd.insets = new Insets(0, 0, 0, 5);
+			gbc_btnAdd.gridx = 0;
+			gbc_btnAdd.gridy = 2;
+			contentPane.add(btnAdd, gbc_btnAdd);
+			
 			JLabel lblNewLabel_2 = new JLabel("Logged in as a Student");
 			lblNewLabel_2.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			GridBagConstraints gbc_lblNewLabel_2 = new GridBagConstraints();
@@ -150,6 +160,11 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 			gbc_lblNewLabel_2.gridx = 1;
 			gbc_lblNewLabel_2.gridy = 2;
 			contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
+			
+			//actionlisteners
+			btnSearch.addActionListener(this);
+			btnAdd.addActionListener(this);
+			this.addWindowListener(this);
 			
 			//actionlisteners
 			
@@ -166,7 +181,7 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 			gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 			contentPane.setLayout(gbl_contentPane);
 			
-			JLabel lblWelcomeUser = new JLabel("Welcome, ");
+			JLabel lblWelcomeUser = new JLabel("Welcome, " + u.name.replace('_', ' '));
 			lblWelcomeUser.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			GridBagConstraints gbc_lblWelcomeUser = new GridBagConstraints();
 			gbc_lblWelcomeUser.anchor = GridBagConstraints.WEST;
@@ -245,6 +260,7 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 			gbc_lblNewLabel_2.gridx = 1;
 			gbc_lblNewLabel_2.gridy = 2;
 			contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
+			this.addWindowListener(this);
 		} else if (u instanceof Administrator) {
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setBounds(100, 100, 600, 400);
@@ -258,7 +274,7 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 			gbl_contentPane.rowWeights = new double[]{0.0, 1.0, 0.0, Double.MIN_VALUE};
 			contentPane.setLayout(gbl_contentPane);
 			
-			JLabel lblWelcomeUser = new JLabel("Welcome, " + u.getName());
+			JLabel lblWelcomeUser = new JLabel("Welcome, " + u.getName().replace('_', ' '));
 			lblWelcomeUser.setFont(new Font("Tahoma", Font.PLAIN, 14));
 			GridBagConstraints gbc_lblWelcomeUser = new GridBagConstraints();
 			gbc_lblWelcomeUser.anchor = GridBagConstraints.WEST;
@@ -343,6 +359,14 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 			this.addWindowListener(this);
 		}
 	}
+	
+	public User getU() {
+		return u;
+	}
+
+	public void setU(User u) {
+		this.u = u;
+	}
 
 	public static void saveUserToFile() {
 		File output = new File("src/UsernamePassword/");
@@ -360,7 +384,7 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 					write.newLine();
 				} else if(u instanceof Professor) {
 					write.write("Professor " + u.getName() + " " + u.getUsername() + " " + u.getPassword());
-					for (Course c : Administrator.arrCourses) {
+					for (Course c : Professor.arrCourses) {
 						write.write("Course " + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
 								c.getTimeAndDays() + " " + c.getLengthOfCourse() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
 								c.getName());
@@ -368,7 +392,7 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 					write.newLine();
 				} else if(u instanceof Student) {
 					write.write("Student " + u.getName() + " " + u.getUsername() + " " + u.getPassword());
-					for (Course c : Administrator.arrCourses) {
+					for (Course c : Student.arrCourses) {
 						write.write("Course " + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
 								c.getTimeAndDays() + " " + c.getLengthOfCourse() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
 								c.getName());
@@ -394,7 +418,6 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 
 	@Override
 	public void windowClosing(WindowEvent e) {
-		// TODO Auto-generated method stub
 		int n = JOptionPane.showConfirmDialog(this, "You have changes that have not been saved. Save now?", "Unsaved Changes", 
 																							JOptionPane.YES_NO_CANCEL_OPTION);
 		if (n==1) {//User chooses No
@@ -442,7 +465,13 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+		if(e.getSource() == btnSearch) {
+			
+		} else if(e.getSource() == btnAdd) {
+			CourseForm frame = new CourseForm(this, false, u);
+			this.setEnabled(false);
+			frame.setVisible(true);
+		}
 		
 	}
 	

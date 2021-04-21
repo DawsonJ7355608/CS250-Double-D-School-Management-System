@@ -26,9 +26,9 @@ import javax.swing.JComboBox;
 import javax.swing.DefaultComboBoxModel;
 
 /*	
- * TODO: fix the way the program exits to implement a way to save newly created users back to UsernamePassword.txt
- * 		 add bar to top and let user only exit through than -> disable [X] in top right
- * 		 actionListener -> if user exits -> save IO file
+ * TODO: allow users to view courses they're enrolled in via the homepage.
+ * 		- each 
+ * 
  */
 
 public class LoginForm extends JFrame implements ActionListener {
@@ -39,8 +39,6 @@ public class LoginForm extends JFrame implements ActionListener {
 	private JButton btnLogin;
 	public static ArrayList<User> arrUsers;
 	private JPasswordField txtPassword;
-	private JComboBox<String> cbbUserType;
-	private JLabel lblUserType;
 
 	/**
 	 * Launch the application.
@@ -70,13 +68,13 @@ public class LoginForm extends JFrame implements ActionListener {
 		contentPane.setBackground(Color.DARK_GRAY);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(new GridLayout(4, 2, 5, 5));
+		contentPane.setLayout(new GridLayout(3, 2, 5, 5));
 		
-		JLabel lblStarID = new JLabel("StarID:");
-		lblStarID.setForeground(Color.WHITE);
-		lblStarID.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblStarID.setFont(new Font("Tahoma", Font.PLAIN, 16));
-		contentPane.add(lblStarID);
+		JLabel lblUsername = new JLabel("Username:");
+		lblUsername.setForeground(Color.WHITE);
+		lblUsername.setAlignmentX(Component.CENTER_ALIGNMENT);
+		lblUsername.setFont(new Font("Tahoma", Font.PLAIN, 16));
+		contentPane.add(lblUsername);
 		
 		txtUsername = new JTextField();
 		txtUsername.setFont(new Font("Tahoma", Font.PLAIN, 16));
@@ -99,15 +97,6 @@ public class LoginForm extends JFrame implements ActionListener {
 		btnLogin = new JButton("Login");
 		btnLogin.setFont(new Font("Tahoma", Font.PLAIN, 16));
 		contentPane.add(btnLogin);
-		
-		lblUserType = new JLabel("User Type:");
-		lblUserType.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblUserType.setForeground(Color.WHITE);
-		contentPane.add(lblUserType);
-		
-		cbbUserType = new JComboBox<String>();
-		cbbUserType.setModel(new DefaultComboBoxModel<String>(new String[] {"<Select User Type>", "Student", "Professor", "Administrator"}));
-		contentPane.add(cbbUserType);
 		btnLogin.addActionListener(this); //attach listener to login button
 		
 		arrUsers = new ArrayList<>();
@@ -132,7 +121,8 @@ public class LoginForm extends JFrame implements ActionListener {
 			boolean doesUserExist = false;
 			for (User u : arrUsers) {
 				if(u.getUsername().equals(username) && u.getPassword().equals(strPassword)) { //if username and pass mach a user
-					Homepage home = new Homepage(u); //call homepage constructor
+					User logged_in = u;
+					Homepage home = new Homepage(logged_in); //call homepage constructor
 					txtUsername.setText(""); //clear text
 					txtPassword.setText("");
 					doesUserExist = true;
