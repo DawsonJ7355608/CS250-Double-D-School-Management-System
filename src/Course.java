@@ -28,13 +28,12 @@ public class Course {
 	 * @param creditValue
 	 * @param subject
 	 */
-	public Course(String professor, String administrator, int classNumber, String timeAndDays, String lengthOfCourse, double creditValue, String subject, String name) {
+	public Course(String professor, String administrator, int classNumber, String timeAndDays, double creditValue, String subject, String name) {
 		super();
 		this.professor = professor;
 		this.administrator = administrator;
 		this.classNumber = classNumber;
 		this.timeAndDays = timeAndDays;
-		this.lengthOfCourse = lengthOfCourse;
 		this.creditValue = creditValue;
 		this.studentsEnrolled = new ArrayList<>();
 		this.subject = subject;
@@ -88,14 +87,6 @@ public class Course {
 
 	public void setTimeAndDays(String timeAndDays) {
 		this.timeAndDays = timeAndDays;
-	}
-
-	public String getLengthOfCourse() {
-		return lengthOfCourse;
-	}
-
-	public void setLengthOfCourse(String lengthOfCourse) {
-		this.lengthOfCourse = lengthOfCourse;
 	}
 
 	public double getCreditValue() {

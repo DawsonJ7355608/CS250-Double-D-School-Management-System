@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 public class Homepage extends JFrame implements WindowListener, ActionListener{
 
 	private JPanel contentPane;
-	private JTable tblClasses;
+	public JTable tblClasses;
 	private JTextField txtSearch;
 	private JLabel lblWelcomeUser;
 	private JButton btnSearch;
@@ -377,24 +377,24 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 				if(u instanceof Administrator) {
 					write.write("Administrator " + u.getName() + " " + u.getUsername() + " " + u.getPassword() + " ");
 					for (Course c : Administrator.arrCourses) {
-						write.write("Course " + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
-								c.getTimeAndDays() + " " + c.getLengthOfCourse() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
+						write.write(" Course" + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
+								c.getTimeAndDays() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
 								c.getName());
 					}
 					write.newLine();
 				} else if(u instanceof Professor) {
 					write.write("Professor " + u.getName() + " " + u.getUsername() + " " + u.getPassword());
 					for (Course c : Professor.arrCourses) {
-						write.write("Course " + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
-								c.getTimeAndDays() + " " + c.getLengthOfCourse() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
+						write.write(" Course" + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
+								c.getTimeAndDays() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
 								c.getName());
 					}
 					write.newLine();
 				} else if(u instanceof Student) {
 					write.write("Student " + u.getName() + " " + u.getUsername() + " " + u.getPassword());
 					for (Course c : Student.arrCourses) {
-						write.write("Course " + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
-								c.getTimeAndDays() + " " + c.getLengthOfCourse() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
+						write.write(" Course" + " " + c.getProfessor() + " " + c.getAdministrator() + " " + c.getClassNumber() + " " + 
+								c.getTimeAndDays() + " " + c.getCreditValue() + " " + c.getSubject() + " " +
 								c.getName());
 					}
 					write.newLine();
@@ -468,11 +468,11 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 		if(e.getSource() == btnSearch) {
 			
 		} else if(e.getSource() == btnAdd) {
-			CourseForm frame = new CourseForm(this, false, u);
+			CourseForm frame = new CourseForm(this, false, (Student)u);
 			this.setEnabled(false);
 			frame.setVisible(true);
 		}
-		
+
 	}
 	
 }

@@ -41,29 +41,14 @@ public class CourseForm extends JDialog implements ActionListener, WindowListene
 	private JTextField txtCredit;
 	private JTextField txtSubject;
 	private JTextField txtProfessor;
-
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					RegisterForm frame = new RegisterForm(null, false);
-					frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
+	private Student s;
 
 	/**
 	 * Create the frame.
 	 */
-	public CourseForm(JFrame owner, boolean modal, User u) {
+	public CourseForm(JFrame owner, boolean modal, Student s) {
 		super(owner, modal);
-		
+		this.s = s;
 		setTitle("Add a course to your schedule");
 		setBackground(new Color(204, 153, 102));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -237,8 +222,19 @@ public class CourseForm extends JDialog implements ActionListener, WindowListene
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnAdd) {
-			if(txtAdmin.getSelectedText().equals("")) {
-
+			if(txtAdmin.getText().equals("") || txtCourseID.getText().equals("") || txtCredit.getText().equals("") ||
+				txtName.getText().equals("") || txtProfessor.getText().equals("") || txtSubject.getText().equals("") ||
+				txtTimeDay.getText().equals("")) {
+				JOptionPane.showMessageDialog(this, "One or more fields were left blank!", "Error", JOptionPane.ERROR_MESSAGE);
+				return;
+			} else {
+				try {
+				Course course = new Course(txtProfessor.getText(), txtAdmin.getText(), Integer.parseInt(txtCourseID.getText()), txtTimeDay.getText(),
+						Double.parseDouble(txtCredit.getText()), txtSubject.getText(), txtName.getText());
+				s.arrCourses.add(course);
+				} catch (NumberFormatException nfe) {
+							JOptionPane.showMessageDialog(this, "Course ID must be a whole number and credit must be a decimal!", "Error", JOptionPane.ERROR_MESSAGE);
+						}
 			}
 			this.dispose();
 			getOwner().setEnabled(true);
@@ -248,6 +244,7 @@ public class CourseForm extends JDialog implements ActionListener, WindowListene
 			this.dispose();
 			getOwner().setEnabled(true);
 			setModal(true);
+			return;
 		}
 	}
 

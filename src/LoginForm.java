@@ -155,9 +155,9 @@ public class LoginForm extends JFrame implements ActionListener {
 					for (int i = 4; i < temp.length; i++) {
 						if(temp[i].equals("Course")) {
 							Administrator.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
-									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
+									Double.parseDouble(temp[i+5]), temp[i+6], temp[i+7]));
 						}
-						i+=8; //skip items that are obviously not the "Course" flag.
+						i+=7; //skip items that are obviously not the "Course" flag.
 					}
 				} else if(temp[0].equals("Professor")) {
 					Professor p = new Professor(temp[1], temp[2], temp[3]);
@@ -165,9 +165,9 @@ public class LoginForm extends JFrame implements ActionListener {
 					for (int i = 4; i < temp.length; i++) {
 						if(temp[i].equals("Course")) {
 							Professor.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
-									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
+									Double.parseDouble(temp[i+5]), temp[i+6], temp[i+7]));
 						}
-						i+=8; //skip items that are obviously not the "Course" flag.
+						i+=7; //skip items that are obviously not the "Course" flag.
 					}
 				} else if(temp[0].equals("Student")) {
 					Student s = new Student(temp[1], temp[2], temp[3]);
@@ -175,9 +175,9 @@ public class LoginForm extends JFrame implements ActionListener {
 					for (int i = 4; i < temp.length; i++) {
 						if(temp[i].equals("Course")) {
 							Student.arrCourses.add(new Course(temp[i+1], temp[i+2], Integer.parseInt(temp[i+3]), temp[i+4], 
-									temp[i+5], Double.parseDouble(temp[i+6]), temp[i+7], temp[i+8]));
+									Double.parseDouble(temp[i+5]), temp[i+6], temp[i+7]));
 						}
-						i+=8; //skip items that are obviously not the "Course" flag.
+						i+=7; //skip items that are obviously not the "Course" flag.
 					}
 				} else {
 					throw new IOException("Error: a line saved to the file contains an unrecognized flag and "
