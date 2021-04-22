@@ -42,13 +42,19 @@ public class CourseForm extends JDialog implements ActionListener, WindowListene
 	private JTextField txtSubject;
 	private JTextField txtProfessor;
 	private Student s;
+	private Professor p;
+	private Administrator a;
 
 	/**
 	 * Create the frame.
 	 */
-	public CourseForm(JFrame owner, boolean modal, Student s) {
+	public CourseForm(JFrame owner, boolean modal, User u) {
 		super(owner, modal);
-		this.s = s;
+		
+		if(u instanceof Student) this.s = (Student)u;
+		else if(u instanceof Professor) this.p = (Professor)u;
+		else this.a = (Administrator)u;
+		
 		setTitle("Add a course to your schedule");
 		setBackground(new Color(204, 153, 102));
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
@@ -231,7 +237,18 @@ public class CourseForm extends JDialog implements ActionListener, WindowListene
 				try {
 				Course course = new Course(txtProfessor.getText(), txtAdmin.getText(), Integer.parseInt(txtCourseID.getText()), txtTimeDay.getText(),
 						Double.parseDouble(txtCredit.getText()), txtSubject.getText(), txtName.getText());
-				s.arrCourses.add(course);
+				if(this.s!=null) {
+					Student.arrCourses.add(course);
+					Student.writeToTable();
+				}
+				else if(this.p!=null) {
+					Professor.arrCourses.add(course);
+					Professor.writeToTable();
+				}
+				else {
+					Administrator.arrCourses.add(course);
+					Administrator.writeToTable();
+				}
 				} catch (NumberFormatException nfe) {
 							JOptionPane.showMessageDialog(this, "Course ID must be a whole number and credit must be a decimal!", "Error", JOptionPane.ERROR_MESSAGE);
 						}
