@@ -27,7 +27,7 @@ import javax.swing.table.DefaultTableModel;
 public class Homepage extends JFrame implements WindowListener, ActionListener{
 
 	private JPanel contentPane;
-	public JTable tblClasses;
+	public static JTable tblClasses;
 	private JTextField txtSearch;
 	private JLabel lblWelcomeUser;
 	private JButton btnSearch;

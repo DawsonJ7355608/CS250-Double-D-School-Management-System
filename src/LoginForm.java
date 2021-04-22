@@ -122,6 +122,7 @@ public class LoginForm extends JFrame implements ActionListener {
 			for (User u : arrUsers) {
 				if(u.getUsername().equals(username) && u.getPassword().equals(strPassword)) { //if username and pass mach a user
 					User logged_in = u;
+					u.login();
 					Homepage home = new Homepage(logged_in); //call homepage constructor
 					txtUsername.setText(""); //clear text
 					txtPassword.setText("");
