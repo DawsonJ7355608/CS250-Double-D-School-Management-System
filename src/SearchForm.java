@@ -6,6 +6,7 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 import java.awt.GridBagLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,13 +21,17 @@ public class SearchForm extends JDialog implements ActionListener{
 	private JTable tblSearchResults;
 	private JButton btnAddCourse;
 	private JButton btnOk;
+	private Student s;
+	private Professor p;
+	private Administrator a;
+	private Course c;
 
 	/**
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
 		try {
-			SearchForm dialog = new SearchForm(null, null, null);
+			SearchForm dialog = new SearchForm(null, null, null, null);
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -37,9 +42,12 @@ public class SearchForm extends JDialog implements ActionListener{
 	/**
 	 * Create the dialog.
 	 */
-	public SearchForm(Administrator a, Professor p, Student s) {
+	public SearchForm(Course c, Student s, Professor p, Administrator a) {
+		
+		this.c = c;
+		
 		setTitle("Search results");
-		setBounds(100, 100, 700, 850);
+		setBounds(100, 100, 700, 118);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel, BorderLayout.CENTER);
@@ -54,52 +62,6 @@ public class SearchForm extends JDialog implements ActionListener{
 			tblSearchResults.setModel(new DefaultTableModel(
 				new Object[][] {
 					{"Subject", "Course No.", "Name", "Dates", "Days/Time", "Cr/Hr", "Instructors"},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
-					{null, null, null, null, null, null, null},
 					{null, null, null, null, null, null, null},
 				},
 				new String[] {
@@ -136,6 +98,46 @@ public class SearchForm extends JDialog implements ActionListener{
 			}
 		}
 		
+		//write data to table
+		Point point = new Point();
+		
+		String[] arr = new String[6];
+		for(int m = 0; m<6; m++) {
+			switch (m) {
+			case (0):
+				arr[m] = c.getSubject();
+				continue;
+			case (1):
+				arr[m] = "" + c.getClassNumber();
+				continue;
+			case (2):
+				System.out.println("Removed");
+				continue;
+			case (3):
+				arr[m] = c.getTimeAndDays();
+				continue;
+			case (4):
+				arr[m] = "" + c.getCreditValue();
+				continue;
+			case (5):
+				arr[m] = "" + c.getProfessor();
+				continue;
+			}
+		}
+		
+		if(!s.equals(null)) {
+			this.s = s;
+		} else if(!p.equals(null)) {
+			this.p = p;
+		} else if(!a.equals(null)) {
+			this.a = a;
+		}
+		
+		for(int j = 0; j<6;j++) {
+			point.x = 2; point.y = j;
+			this.tblSearchResults.setValueAt(arr[j], point.x, point.y);
+		}
+		
 		//add actionlisteners
 		btnOk.addActionListener(this);
 		btnAddCourse.addActionListener(this);
@@ -147,7 +149,17 @@ public class SearchForm extends JDialog implements ActionListener{
 		if(e.getSource()==btnOk) {
 			dispose();
 		} else if(e.getSource() == btnAddCourse) {
-			//tblSearchResults.getSelected
+			
+			if(!this.s.equals(null)) {
+				Student.arrCourses.add(this.c);
+				Student.writeToTable();
+			} else if(!this.p.equals(null)) {
+				Professor.arrCourses.add(this.c);
+				Professor.writeToTable();
+			} else {
+				Administrator.arrCourses.add(this.c);
+				Administrator.writeToTable();
+			}
 		}
 	}
 

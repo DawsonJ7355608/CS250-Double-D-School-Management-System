@@ -13,6 +13,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -33,6 +35,12 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 	private JButton btnSearch;
 	private JButton btnAdd;
 	private User u;
+	
+	public Student s;
+	public Professor p;
+	public Administrator a;
+	
+	public static Map<String, Course> searchByCourseName;
 
 	/**
 	 * Launch the application.
@@ -161,12 +169,15 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 			gbc_lblNewLabel_2.gridy = 2;
 			contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
 			
+			//Hashmap Constructor
+			searchByCourseName = new HashMap<>();
+			
 			//actionlisteners
 			btnSearch.addActionListener(this);
 			btnAdd.addActionListener(this);
 			this.addWindowListener(this);
 			
-			//actionlisteners
+			this.s = (Student)u;
 			
 		} else if (u instanceof Professor) {
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -260,7 +271,12 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 			gbc_lblNewLabel_2.gridx = 1;
 			gbc_lblNewLabel_2.gridy = 2;
 			contentPane.add(lblNewLabel_2, gbc_lblNewLabel_2);
+			
 			this.addWindowListener(this);
+			btnSearch.addActionListener(this);
+			
+			this.p = (Professor)u;
+			
 		} else if (u instanceof Administrator) {
 			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 			setBounds(100, 100, 600, 400);
@@ -357,6 +373,9 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 			
 			pack();
 			this.addWindowListener(this);
+			btnSearch.addActionListener(this);
+			
+			this.a = (Administrator)u;
 		}
 	}
 	
@@ -466,7 +485,15 @@ public class Homepage extends JFrame implements WindowListener, ActionListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource() == btnSearch) {
-			
+			if(txtSearch.getText().isEmpty()) {
+				JOptionPane.showMessageDialog(this, "Please input some criteria into the text box");
+			} else {
+				if(!searchByCourseName.containsKey(txtSearch.getText())) {
+					JOptionPane.showMessageDialog(this, "No value matching that search criteria could be found. Please try again!");
+				} else {
+					new SearchForm(searchByCourseName.get(txtSearch.getText()), s, p, a);
+				}
+			}
 		} else if(e.getSource() == btnAdd) {
 			CourseForm frame = new CourseForm(this, false, (Student)u);
 			this.setEnabled(false);

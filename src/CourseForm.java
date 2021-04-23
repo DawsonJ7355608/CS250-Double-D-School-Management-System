@@ -239,14 +239,17 @@ public class CourseForm extends JDialog implements ActionListener, WindowListene
 						Double.parseDouble(txtCredit.getText()), txtSubject.getText(), txtName.getText());
 				if(this.s!=null) {
 					Student.arrCourses.add(course);
+					Homepage.searchByCourseName.put(course.getName(), course);
 					Student.writeToTable();
 				}
 				else if(this.p!=null) {
 					Professor.arrCourses.add(course);
+					Homepage.searchByCourseName.put(course.getName(), course);
 					Professor.writeToTable();
 				}
 				else {
 					Administrator.arrCourses.add(course);
+					Homepage.searchByCourseName.put(course.getName(), course);
 					Administrator.writeToTable();
 				}
 				} catch (NumberFormatException nfe) {
